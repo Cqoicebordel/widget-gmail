@@ -1,4 +1,7 @@
 <?php 
+print '<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Mails</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
 print "<style type=\"text/css\">
  body {margin:0;padding:0;height:200px;width:700px}
  .from {font-weight:bold}
@@ -35,10 +38,10 @@ for($i=0; $i<count($username); $i++){
             
             // Output the email informations
             $output.= '<div style="color:'.$colors[$i].'">';
-            $output.= '<span class="from">'.$overview[0]->from.' : </span>';
+            $output.= '<span class="from">'.htmlentities($overview[0]->from).' : </span>';
 
             //
-            $output.= '<span class="subject">'.imap_mime_header_decode($overview[0]->subject)[0]->text.'</span> ';;
+            $output.= '<span class="subject">'.htmlentities(imap_mime_header_decode($overview[0]->subject)[0]->text).'</span> ';;
 
             $output.= '</div>';
         }
@@ -46,5 +49,6 @@ for($i=0; $i<count($username); $i++){
     } 
 }
 
-imap_close($inbox); 
+imap_close($inbox);
+print '</body></html>';
 ?>
