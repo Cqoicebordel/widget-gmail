@@ -4,7 +4,12 @@ print '<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
 print "<style type=\"text/css\">
  body {margin:0;padding:0;height:200px;width:700px}
- .from {font-weight:bold}
+ .from, .count {font-weight:bold}
+ .count {display:none}
+ @media (max-width:99px) {
+  .mail {display:none}
+  .count {display:block}
+ }
  </style>
  <script type=\"text/JavaScript\">
  /* Change this value to change the rate of refresh */
@@ -37,7 +42,7 @@ for($i=0; $i<count($username); $i++){
             $overview = imap_fetch_overview($inbox,$email_number,0);
             
             // Output the email informations
-            $output.= '<div style="color:'.$colors[$i].'">';
+            $output.= '<div class="mail" style="color:'.$colors[$i].'">';
             $output.= '<span class="from">'.htmlentities($overview[0]->from).' : </span>';
 
             //
@@ -45,6 +50,8 @@ for($i=0; $i<count($username); $i++){
 
             $output.= '</div>';
         }
+        $output .= '<div class="count" style="color:'.$colors[$i].'">'.count($emails).'</div>';
+        
         echo $output;
     } 
 }
