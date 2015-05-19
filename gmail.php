@@ -7,8 +7,9 @@ print "<style type=\"text/css\">
  .from, .count {font-weight:bold}
  .count {display:none}
  @media (max-width:99px) {
+  body {margin:0;padding:0;height:auto;width:auto}
   .mail {display:none}
-  .count {display:block}
+  .count {display:inline}
  }
  </style>
  <script type=\"text/JavaScript\">
