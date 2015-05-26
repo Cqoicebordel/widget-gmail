@@ -35,24 +35,24 @@ for($i=0; $i<count($username); $i++){
     // If emails are returned, cycle through each
     if($emails) {
         $output = '';
-        
-        rsort($emails);
-        
-        foreach($emails as $email_number) {
-            
-            $overview = imap_fetch_overview($inbox,$email_number,0);
-            
-            // Output the email informations
-            $output.= '<div class="mail" style="color:'.$colors[$i].'">';
-            $output.= '<span class="from">'.htmlentities($overview[0]->from).' : </span>';
 
-            //
-            $output.= '<span class="subject">'.htmlentities(imap_mime_header_decode($overview[0]->subject)[0]->text).'</span> ';;
+        rsort($emails);
+
+        foreach($emails as $email_number) {
+
+            $overview = imap_headerinfo($inbox, $email_number);
+
+            /* output the email header information */
+            $output.= '<div class="mail" style="color:'.$colors[$i].'">';
+
+            $output.= '<span class="from">'.htmlentities(imap_utf8($overview->fromaddress)).' : </span>';
+
+            $output.= '<span class="subject">'.htmlentities(imap_utf8($overview->Subject)).'</span> ';
 
             $output.= '</div>';
         }
         $output .= '<div class="count" style="color:'.$colors[$i].'">'.count($emails).'</div>';
-        
+
         echo $output;
     } 
 }
